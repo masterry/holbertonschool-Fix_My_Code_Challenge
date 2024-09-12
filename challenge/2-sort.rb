@@ -1,30 +1,30 @@
-#!/usr/bin/env ruby
+###
 #
-#  Sort integer arguments (ascending)
+#  Sort integer arguments (ascending) 
 #
+###
 
 result = []
-
 ARGV.each do |arg|
-  # Skip if not an integer
-  next unless arg =~ /^-?\d+$/
+    # skip if not integer
+    next if arg !~ /^-?[0-9]+$/
 
-  # Convert to integer
-  i_arg = arg.to_i
-
-  # Insert in sorted order
-  inserted = false
-  result.each_with_index do |elem, index|
-    if elem > i_arg
-      result.insert(index, i_arg)
-      inserted = true
-      break
+    # convert to integer
+    i_arg = arg.to_i
+    
+    # insert result at the right position
+    is_inserted = false
+    i = 0
+    l = result.size
+    while !is_inserted && i < l do
+        if result[i] < i_arg
+            i += 1
+        else
+            result.insert(i, i_arg)
+            is_inserted = true
+        end
     end
-  end
-
-  # If not inserted, append to end
-  result << i_arg unless inserted
+    result << i_arg if !is_inserted
 end
 
-# Print each integer on a new line
-result.each { |num| puts num }
+puts result
